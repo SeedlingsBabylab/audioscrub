@@ -61,9 +61,11 @@ if __name__ == "__main__":
     for root, dirs, files in os.walk(start_dir):
         for file in files:
             if file.endswith(".wav"):
+                print file
                 prefix = file[:5]
                 if prefix not in reg_dict:
                     continue
                 regs = reg_dict[prefix]
                 scrub(os.path.join(start_dir, file), regs)
-                print file
+
+
