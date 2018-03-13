@@ -35,6 +35,7 @@ def scrub(path, regions):
                path,
                '-af',
                'volume=\'if({},0,1)\':eval=frame'.format(if_statements),
+               "-y",
                out_path
                ]
 
@@ -54,9 +55,9 @@ if __name__ == "__main__":
         reader.next()
         for row in reader:
             if row[0][:5] not in reg_dict:
-                reg_dict[row[0][:5]] = [(int(row[1])/1000, int(row[2])/1000)]
+                reg_dict[row[0][:5]] = [(float(row[1])/1000, float(row[2])/1000)]
             else:
-                reg_dict[row[0][:5]].append(((int(row[1])/1000, int(row[2])/1000)))
+                reg_dict[row[0][:5]].append(((float(row[1])/1000, float(row[2])/1000)))
 
     for root, dirs, files in os.walk(start_dir):
         for file in files:
