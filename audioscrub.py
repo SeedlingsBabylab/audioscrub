@@ -3,6 +3,7 @@ import sys
 import csv
 import os
 
+
 def build_audio_comparison_commands(regions):
     """
     This takes the audio regions (in frame onset/offset format)
@@ -17,7 +18,7 @@ def build_audio_comparison_commands(regions):
     for index, region in enumerate(regions):
 
         statement = "gt(t,{})*lt(t,{})".format(region[0],
-                                                region[1])
+                                               region[1])
         if index == len(regions) - 1:
             if_statments += statement
         else:
@@ -25,8 +26,10 @@ def build_audio_comparison_commands(regions):
 
     return if_statments
 
+
 def scrub(path, regions):
-    out_path = os.path.join(out_dir, "{}_scrubbed.wav".format(os.path.basename(path)[:5]))
+    out_path = os.path.join(
+        out_dir, "{}_scrubbed.wav".format(os.path.basename(path)[:5]))
 
     if_statements = build_audio_comparison_commands(regions)
 
@@ -55,18 +58,18 @@ if __name__ == "__main__":
         reader.next()
         for row in reader:
             if row[0][:5] not in reg_dict:
-                reg_dict[row[0][:5]] = [(float(row[1])/1000, float(row[2])/1000)]
+                reg_dict[row[0][:5]] = [
+                    (float(row[1]) / 1000, float(row[2]) / 1000)]
             else:
-                reg_dict[row[0][:5]].append(((float(row[1])/1000, float(row[2])/1000)))
+                reg_dict[row[0][:5]].append(
+                    ((float(row[1]) / 1000, float(row[2]) / 1000)))
 
     for root, dirs, files in os.walk(start_dir):
         for file in files:
             if file.endswith(".wav"):
-                print file
                 prefix = file[:5]
                 if prefix not in reg_dict:
                     continue
+                print file
                 regs = reg_dict[prefix]
                 scrub(os.path.join(start_dir, file), regs)
-
-
