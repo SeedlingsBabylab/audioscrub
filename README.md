@@ -8,7 +8,7 @@ silence regions of audio files
 
 ```
 
-$ python audioscrub region_list.csv [input_dir] [output_dir]
+$ python audioscrub.py region_list.csv [input_dir] [output_dir]
 ```
 
 The ```region_list.csv``` file is a csv who's header is:
