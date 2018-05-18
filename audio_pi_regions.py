@@ -44,6 +44,7 @@ if __name__ == "__main__":
     for root, dirs, files in os.walk(input_dir):
         for file in files:
             if file.endswith(".cha"):
+                print "Processing: {}".format(file)
                 try:
                     regs = extract_pi_regions(os.path.join(root, file))
                     regions.extend(regs)
